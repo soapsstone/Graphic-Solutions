@@ -16,7 +16,7 @@ GO
 
 CREATE TABLE [Orders] (
   [id] int PRIMARY KEY IDENTITY(1, 1),
-  [title] varchar NOT NULL,
+  [title] varchar(100) NOT NULL,
   [userId] int NOT NULL
 )
 GO
@@ -24,20 +24,22 @@ GO
 CREATE TABLE [OrderDetails] (
   [id] int PRIMARY KEY IDENTITY(1, 1),
   [orderId] int NOT NULL,
-  [quantity] varchar NOT NULL,
-  [color] varchar NOT NULL,
-  [style] varchar NOT NULL,
-  [size] varchar NOT NULL
+  [quantity] varchar(100) NOT NULL,
+  [color] varchar(100) NOT NULL,
+  [style] varchar(100) NOT NULL,
+  [size] varchar(100) NOT NULL,
+
+  CONSTRAINT [FK_OrderDetails_Orders] FOREIGN KEY ([OrderId]) REFERENCES [Orders] ([Id])
 )
 GO
 
 CREATE TABLE [User] (
   [id] int PRIMARY KEY IDENTITY(1, 1),
   [FirebaseUserId] NVARCHAR(28) NOT NULL,
-  [firstName] nvarchar NOT NULL,
-  [lastName] nvarchar NOT NULL,
-  [email] nvarchar NOT NULL,
-  [password] nvarchar NOT NULL,
+  [firstName] nvarchar(50) NOT NULL,
+  [lastName] nvarchar(50) NOT NULL,
+  [email] nvarchar(550) NOT NULL,
+  [password] nvarchar(50) NOT NULL,
   [userTypeId] int NOT NULL,
 
   CONSTRAINT UQ_FirebaseUserId UNIQUE(FirebaseUserId)
@@ -46,7 +48,7 @@ GO
 
 CREATE TABLE [UserType] (
   [id] int PRIMARY KEY IDENTITY(1, 1),
-  [name] nvarchar(255) NOT NULL
+  [name] nvarchar(50) NOT NULL
 )
 GO
 
@@ -58,4 +60,3 @@ GO
 
 ALTER TABLE [User] ADD FOREIGN KEY ([UserTypeId]) REFERENCES [UserType] ([id])
 GO
-

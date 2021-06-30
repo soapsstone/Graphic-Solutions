@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "zjrmwuQeOpOBg59+hHcRTNO/eM6CF6JN/zEBHL4L+xCGQG8XqVCQz1GnKx+OX0D9bPhnJBQsty76P80aaA4MUQ==",
+  "dgSpecHash": "oqBE86YkPtjS1foXKXp0fUWFrcf40iBpjEarhRLGFVGxVrM/bnkwjfj/vw3Nj2ldw+xwMZSZWs/SpOzUDaa8Ug==",
   "success": true,
   "projectFilePath": "C:\\Users\\melvin nichols\\workspace\\capstones\\Graphic-Solutions\\Graphic-Solutions\\Graphic-Solutions.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\melvin nichols\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",
     "C:\\Users\\melvin nichols\\.nuget\\packages\\azure.identity\\1.3.0\\azure.identity.1.3.0.nupkg.sha512",
+    "C:\\Users\\melvin nichols\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.16\\microsoft.aspnetcore.authentication.jwtbearer.3.1.16.nupkg.sha512",
     "C:\\Users\\melvin nichols\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.0.0\\microsoft.bcl.asyncinterfaces.1.0.0.nupkg.sha512",
     "C:\\Users\\melvin nichols\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\melvin nichols\\.nuget\\packages\\microsoft.data.sqlclient\\3.0.0\\microsoft.data.sqlclient.3.0.0.nupkg.sha512",

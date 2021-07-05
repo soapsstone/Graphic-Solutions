@@ -31,6 +31,17 @@ export const OrdersProvider = (props) => {
      }).then((res) => res.json()))
   }
 
+  const getOrderDetails = (id) => {
+    return getToken().then((token) => 
+     fetch(`https://localhost:5001/api/orders/getWithDetails/${id}`, {
+       method: "GET",
+       headers: {
+         Authorization: `Bearer ${token}`
+       }
+     }).then((res) => res.json()))
+  }
+
+
    // This function stores the userProfile object from sessionStorage is stored in a variable
    // and a fetch call is made to the api passing in the current user id
    const getOrdersByUserId = () => {
@@ -57,8 +68,18 @@ export const OrdersProvider = (props) => {
      })
     )};
 
+    const deleteOrder = orderId => {
+      return getToken().then((token) =>
+       fetch(`https://localhost:5001/api/orders/${orderId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }))
+    }
+
   return (
-    <OrdersContext.Provider value={{ orders, getAllOrders, getOrdersByUserId, addOrders, getById }}>
+    <OrdersContext.Provider value={{ orders, getAllOrders, getOrdersByUserId, addOrders, getById, deleteOrder, getOrderDetails }}>
       {props.children}
     </OrdersContext.Provider>
   );

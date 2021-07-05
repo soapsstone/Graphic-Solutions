@@ -29,7 +29,7 @@ export const NavBar = (props) => {
             }
 
               <li className="navbar__item">
-                <NavLink tag={RRNavLink} to="/blank">Services Offerec</NavLink>
+                <NavLink tag={RRNavLink} to="/blank">Services Offered</NavLink>
               </li>
 
             {isLoggedIn &&

@@ -8,6 +8,7 @@ import Hello from "./Hello";
 import OrderList from "./OrdersList";
 import OrdersForm from "./OrdersForm";
 import { OrderDetail } from "./OrderDetails";
+import OrderDelete from "./OrderDelete";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserContext);
@@ -38,8 +39,16 @@ export default function ApplicationViews() {
             {isLoggedIn ? <OrdersForm /> : <Redirect to="/login" />}
           </Route>
 
-          <Route path="/orders/:id(\d+)">
+          <Route path="/orders/:orderId(\d+)">
             {isLoggedIn ? <OrderDetail /> : <Redirect to="/login" />}
+          </Route>
+
+          <Route path="/delete/:id">
+            <OrderDelete />
+          </Route>
+
+          <Route path="/orders/edit/:orderId(\d+)">
+            {isLoggedIn ? <OrdersForm /> : <Redirect to="/login" />}
           </Route>
 
         </OrdersProvider>

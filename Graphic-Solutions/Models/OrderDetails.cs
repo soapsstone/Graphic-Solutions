@@ -22,5 +22,8 @@ namespace Graphic_Solutions.Models
 
         [Required]
         public string Size { get; set; }
+
+        public int OrderId { get; set; }
+        public int UserId { get; set; }
     }
 }

@@ -14,7 +14,7 @@ import {
   
 
 const OrdersForm = () => {
-    const {  addOrders, getById, getOrders, updateOrder } = useContext(OrdersContext)
+    const {  addOrders, getById, getAllOrders, updateOrder } = useContext(OrdersContext)
     const [title, setTitle] = useState("");
     const [userId, setUserId] = useState("");
     
@@ -35,8 +35,7 @@ const OrdersForm = () => {
     // Get categories.
     useEffect(() => {
           if (orderId){
-            getOrders(orderId)
-            console.log(orderId)
+            getAllOrders(orderId)
             .then(order => {
             
                 setOrder(order)
@@ -77,6 +76,7 @@ const OrdersForm = () => {
           //pushes a new entry onto the history stack
           .then(() => history.push(`/orders/${order.id}`))
         }else {
+            debugger
           //POST - add
           addOrders({
               Title: order.title,
@@ -97,31 +97,31 @@ const OrdersForm = () => {
                 <Form>
                   <FormGroup>
                     <Label for="title">Title</Label>
-                    <Input id="title" name="Title" onChange={handleControlledInputChange} defaultValue={order.title}/>
+                    <Input id="title" name="Title" onChange={handleControlledInputChange} defaultValue={order?.title}/>
                   </FormGroup>
                 </Form>
                 <Form>
                   <FormGroup>
                     <Label for="title">Quantity:</Label>
-                    <Input id="quantity" name="Quantity" onChange={handleControlledInputChange} defaultValue={order.quantity}/>
+                    <Input id="quantity" name="Quantity" onChange={handleControlledInputChange} defaultValue={order?.quantity}/>
                   </FormGroup>
                 </Form>
                 <Form>
                   <FormGroup>
                     <Label for="size">Size: </Label>
-                    <Input id="size" name="Size" onChange={handleControlledInputChange} defaultValue={order.size}/>
+                    <Input id="size" name="Size" onChange={handleControlledInputChange} defaultValue={order?.size}/>
                   </FormGroup>
                 </Form>
                 <Form>
                   <FormGroup>
                     <Label for="style">Style: </Label>
-                    <Input id="style" name="Style" onChange={handleControlledInputChange} defaultValue={order.style}/>
+                    <Input id="style" name="Style" onChange={handleControlledInputChange} defaultValue={order?.style}/>
                   </FormGroup>
                 </Form>
                 <Form>
                   <FormGroup>
                     <Label for="color">Color: </Label>
-                    <Input id="color" name="Color" onChange={handleControlledInputChange} defaultValue={order.color}/>
+                    <Input id="color" name="Color" onChange={handleControlledInputChange} defaultValue={order?.color}/>
                   </FormGroup>
                 </Form>
                 

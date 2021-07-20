@@ -6,8 +6,8 @@ import { useParams, useHistory } from "react-router-dom"
 import Order from "./Order"
 
 export const OrderDetail = () => {
-  const { getById, getOrderDetails } = useContext(OrdersContext)
-  const { deleteOrder } = useContext(OrdersContext)
+  const { getById, getOrderDetails, getSingleOrderDetail } = useContext(OrdersContext)
+  const { deleteOrderDetail } = useContext(OrdersContext)
 	const [order, setOrder] = useState({}) //declaring our own state for single order
 
 	const {orderId} = useParams(); //pulls the orderId from the route to know which one to render
@@ -24,8 +24,8 @@ export const OrderDetail = () => {
 
     const history = useHistory()
 
-    const handleDelete = () => {
-    deleteOrder(order.id)
+    const handleDelete = (orderObject) => {
+    deleteOrderDetail(orderObject)
       .then(() => {
         history.push("/orders")
       })
@@ -43,10 +43,10 @@ export const OrderDetail = () => {
                 <div className="order__color">Color: {order.color}</div>
                 <div className="order__style">Style: {order.style}</div>
                 <div className="order__size">Size: {order.size}</div>
-                <button onClick={handleDelete}>Delete Order</button>
+                <button onClick={() => handleDelete(order)}>Delete Order Item</button>
                 <button onClick={() => {
-                    history.push(`/orders/edit/${order.id}`)
-                }}>Edit</button>
+                    history.push(`/orderdetail/edit/${order.id}`)
+                }}>Edit Order Item</button>
                 </section>))}
             </ListGroup>
         </div>

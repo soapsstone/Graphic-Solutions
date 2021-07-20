@@ -121,7 +121,7 @@ namespace Graphic_Solutions.Repositories
                     cmd.CommandText = @"
                         UPDATE Orders
                            SET Title = @Title,
-                               UserId = @UserId,
+                               UserId = @UserId
                          WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Title", orders.Title);
@@ -191,8 +191,8 @@ namespace Graphic_Solutions.Repositories
                                 Style = DbUtils.GetString(reader, "Style"),
                                 Size = DbUtils.GetString(reader, "Size"),
                                 //add these two to the orderdetails model 
-                                OrderId = DbUtils.GetInt(reader, "OrderId"),
-                                UserId = DbUtils.GetInt(reader, "UserId")
+                                OrderId = DbUtils.GetInt(reader, "OrderId")
+                                
                                 //**************************
                             });
                         }

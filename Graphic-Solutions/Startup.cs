@@ -32,6 +32,7 @@ namespace Graphic_Solutions
             services.AddControllers();
             services.AddTransient<IOrdersRepository, OrdersRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IOrderDetailsRepository, OrderDetailsRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";

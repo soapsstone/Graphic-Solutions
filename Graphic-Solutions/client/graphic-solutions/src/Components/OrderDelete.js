@@ -15,8 +15,7 @@ const OrderDelete = () => {
   }, []);
 
   const handleDelete = () => {
-      debugger
-    deleteOrder(orders.id)
+    deleteOrder(order.id)
       .then(() => {
         history.push("/orders")
       })

@@ -1,10 +1,21 @@
 .navbar {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: left;
+    /* justify-content: left; */
+    margin: 1em
 }
 
 .navbar__item {
     flex-basis: 20%;
     list-style-type: none;
+}
+
+.logo-image{
+    width: 325px;
+    height: 250px;
+    /* border-radius: 50%; */
+    overflow: hidden;
+    /* margin-top: -6px; */
+    margin: -6px auto 0;
+    justify-content: center;
 }

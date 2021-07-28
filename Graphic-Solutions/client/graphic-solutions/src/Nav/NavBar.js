@@ -18,19 +18,27 @@ export const NavBar = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
     return (
+    <>
+      <div>
+        <div className="logo-image" position="static" >
+          <img src='logo193.png'  />716 31st Street | Huntington, WV 25702 | Email: angela@gswv.net 
+        </div>
+        <hr></hr>
+
+      <nav>
         <ul className="navbar">
             <li className="navbar__item active">
                 <Link className="navbar__link" to="/">Home</Link>
             </li>
-            {isLoggedIn &&
               <li className="navbar__item">
-                <NavLink tag={RRNavLink} to="/orders">Orders</NavLink>
+                <NavLink tag={RRNavLink} to="/blank">Services Offered</NavLink>
+              </li>
+
+              {isLoggedIn &&
+              <li className="navbar__item">
+                <NavLink tag={RRNavLink} to="/orders">Cart</NavLink>
               </li>
             }
-
-              <li className="navbar__item">
-                <NavLink tag={RRNavLink} to="/blank">Services Offerec</NavLink>
-              </li>
 
             {isLoggedIn &&
               <li className="navbar__item">
@@ -43,7 +51,8 @@ export const NavBar = (props) => {
                    <a style={{ cursor: "pointer" }} onClick={logout} to="/">Logout</a>
             </li>
         </ul>
-
-        
+        </nav>
+      </div>
+      </>  
     )
 }

@@ -8,6 +8,8 @@ import Hello from "./Hello";
 import OrderList from "./OrdersList";
 import OrdersForm from "./OrdersForm";
 import { OrderDetail } from "./OrderDetails";
+import OrderDelete from "./OrderDelete";
+import OrderDetailForm from "./OrderDetailForm";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserContext);
@@ -15,9 +17,6 @@ export default function ApplicationViews() {
   return (
     <main>
       <Switch>
-        <Route path="/" exact>
-          <Hello /> 
-        </Route>
 
         <Route path="/login">
           <Login />
@@ -25,6 +24,10 @@ export default function ApplicationViews() {
 
         <Route path="/register">
           <Register />
+        </Route>
+
+        <Route path="/" exact>
+          <Hello /> 
         </Route>
 
 
@@ -38,9 +41,23 @@ export default function ApplicationViews() {
             {isLoggedIn ? <OrdersForm /> : <Redirect to="/login" />}
           </Route>
 
-          <Route path="/orders/:id(\d+)">
+          <Route path="/orders/:orderId(\d+)">
             {isLoggedIn ? <OrderDetail /> : <Redirect to="/login" />}
           </Route>
+
+          <Route path="/orders/:orderId(\d+)">
+            {isLoggedIn ? <OrderDetailForm /> : <Redirect to="/login" />}
+          </Route>
+
+          <Route path="/delete/:id">
+            <OrderDelete />
+          </Route>
+
+          <Route path="/orderdetail/edit/:orderId(\d+)">
+            {isLoggedIn ? <OrderDetailForm /> : <Redirect to="/login" />}
+          </Route>
+
+
 
         </OrdersProvider>
       </Switch>

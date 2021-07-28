@@ -13,77 +13,98 @@ import {
   } from "reactstrap";
   
 
-const OrdersForm = () => {
-    const {  addOrders, getById, getAllOrders, updateOrder } = useContext(OrdersContext)
-    const [title, setTitle] = useState("");
-    const [userId, setUserId] = useState("");
+const OrderDetailForm = () => {
+    const {  addOrderDetail, getById, getOrderDetails, updateOrder, getSingleOrderDetail, deleteOrder } = useContext(OrdersContext)
+    // const [quantity] = useState("");
+    // const [color] = useState("");
+    // const [style] = useState("");
+    // const [size] = useState("");
     
     /*
     With React, we do not target the DOM with `document.querySelector()`. Instead, our return (render) reacts to state or props.
     Define the intial state of the form inputs with useState()
     */
     const [order, setOrder] = useState({});
+    const [orderDetails, setOrderDetails] = useState({});
 
 
 
     const history = useHistory();
         //wait for data before button is active
-    const [isLoading, setIsLoading] = useState(true);
-    const {orderId} = useParams();
+        const [isLoading, setIsLoading] = useState(true);
 
+        const {orderId} = useParams();
 
+    // Get categories.
     useEffect(() => {
-          if (orderId){
-            getAllOrders(orderId)
-            .then(order => {
-            
-                setOrder(order)
-                console.log(order)
-                setIsLoading(false)
-            })
-          } else {
-            setIsLoading(false)
-          }
+
+      getById(orderId)
+      .then(newOrder => {
+        setOrder(newOrder)
+        if (orderId != newOrder.id || order.id === null ){
+          getSingleOrderDetail(orderId)
+          .then(orderDetails => {
+          
+              setOrderDetails(orderDetails)
+              console.log(orderDetails)
+              setIsLoading(false)
+          })
+        } else {
+          setIsLoading(false)
+        }
+      })
         
+       
       }, [])
 
     const handleControlledInputChange = (event) => {
       //When changing a state object or array,
       //always create a copy make changes, and then set state.
-      const newOrder = { ...order }
+      const newOrder = { ...orderDetails }
       //animal is an object with properties.
       //set the property to the new value
       newOrder[event.target.id] = event.target.value
       //update state
-      setOrder(newOrder)
+      setOrderDetails(newOrder)
     }
 
     const currentUser = JSON.parse(sessionStorage.getItem("user")).id
 
-    const handleSaveOrder = () => {
+    const handleSaveOrderDetail = () => {
         console.log(currentUser)
-        debugger
         //disable the button - no extra clicks
         setIsLoading(true);
-        if (orderId){
+        if (+orderId !== order.id){
           //PUT - update
           updateOrder({
-              Id: order.id,
-              Title: order.title,
-              UserId: currentUser
+              Id: orderDetails.id,
+              OrderId: parseInt(orderDetails.orderId),
+              Quantity: orderDetails.quantity,
+              Color: orderDetails.color,
+              Style: orderDetails.style,
+              Size: orderDetails.size
           })
           //pushes a new entry onto the history stack
-          .then(() => history.push(`/orders/${order.id}`))
+          .then(() => history.push(`/orders/${orderDetails.orderId}`))
         }else {
-          
           //POST - add
-          addOrders({
-              Title: order.title,
-              UserId: currentUser
+          addOrderDetail({
+              OrderId: +orderId,
+              Quantity: orderDetails.quantity,
+              Color: orderDetails.color,
+              Style: orderDetails.style,
+              Size: orderDetails.size
           })
           //pushes a new entry onto the history stack
           .then(() => history.push("/orders"))
         }
+      }
+
+      const handleDelete = () => {
+        deleteOrder(order.id)
+          .then(() => {
+            history.push("/orders")
+          })
       }
     
 
@@ -93,41 +114,42 @@ const OrdersForm = () => {
           <div className="row justify-content-center">
             <Card className="col-sm-12 col-lg-6">
               <CardBody>
-                <Form>
+                {/* <Form>
                   <FormGroup>
                     <Label for="title">Title</Label>
-                    <Input id="title" name="Title" onChange={handleControlledInputChange} defaultValue={order?.title}/>
+                    <Input id="title" name="Title" onChange={handleControlledInputChange} defaultValue={orderDetails?.title}/>
                   </FormGroup>
-                </Form>
-                  {/*<Form> <FormGroup>
+                </Form> */}
+                <Form>
+                  <FormGroup>
                     <Label for="title">Quantity:</Label>
-                    <Input id="quantity" name="Quantity" onChange={handleControlledInputChange} defaultValue={order?.quantity}/>
+                    <Input id="quantity" name="Quantity" onChange={handleControlledInputChange} defaultValue={orderDetails?.quantity}/>
                   </FormGroup>
                 </Form>
                 <Form>
                   <FormGroup>
                     <Label for="size">Size: </Label>
-                    <Input id="size" name="Size" onChange={handleControlledInputChange} defaultValue={order?.size}/>
+                    <Input id="size" name="Size" onChange={handleControlledInputChange} defaultValue={orderDetails?.size}/>
                   </FormGroup>
                 </Form>
                 <Form>
                   <FormGroup>
                     <Label for="style">Style: </Label>
-                    <Input id="style" name="Style" onChange={handleControlledInputChange} defaultValue={order?.style}/>
+                    <Input id="style" name="Style" onChange={handleControlledInputChange} defaultValue={orderDetails?.style}/>
                   </FormGroup>
                 </Form>
                 <Form>
                   <FormGroup>
                     <Label for="color">Color: </Label>
-                    <Input id="color" name="Color" onChange={handleControlledInputChange} defaultValue={order?.color}/>
+                    <Input id="color" name="Color" onChange={handleControlledInputChange} defaultValue={orderDetails?.color}/>
                   </FormGroup>
                 </Form>
-                 */}
+                <button onClick={handleDelete}>Delete Order</button>
                 <button className="btn btn-primary"
                   
                   onClick={event => {
                     event.preventDefault() // Prevent browser from submitting the form and refreshing the page
-                    handleSaveOrder()
+                    handleSaveOrderDetail()
                   }}>
                 {orderId ? <>Save Order</> : <>Add Order</>}</button>
                 <button onClick={()=>{history.push(`/orders`)}}>Cancel</button>
@@ -138,4 +160,4 @@ const OrdersForm = () => {
       );
 };
 
-export default OrdersForm;
+export default OrderDetailForm;
